@@ -33,7 +33,7 @@ class Author extends Controller
 
         ];
 
-        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
+        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
     }
 
     public function getById($id)
@@ -47,7 +47,7 @@ class Author extends Controller
             "profile"=> "synergize scalable supply-chains"
         ];
 
-        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $author]);
+        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $author], 200);
     }
 
     public function insert(Request $request)
@@ -61,7 +61,7 @@ class Author extends Controller
             "profile"=> $request->input('profile')
         ];
 
-        return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $author]);
+        return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $author], 201);
     }
 
     public function update(Request $request,$id)
@@ -75,12 +75,12 @@ class Author extends Controller
             "profile"=> $request->input('profile')
         ];
 
-        return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $author]);
+        return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $author], 201);
     }
 
     public function delete($id)
     {
-        return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]]);    
+        return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
 
 

@@ -53,7 +53,7 @@ class Post extends Controller
             "author_id"=>10
         ];
 
-        return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $post]);
+        return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $post], 200);
     }
 
     public function insert(Request $request)
@@ -63,13 +63,13 @@ class Post extends Controller
             "title"=> $request->input('title'),
             "content"=> $request->input('content'),
             "tags"=> $request->input('tags'),
-            "status"=> $request->input('publish'),
+            "status"=> $request->input('status'),
             "created_time"=> $request->input('created'),
             "updated_time"=> $request->input('update'),
             "author_id"=>$request->input('author_id')
         ];
 
-        return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $post]);
+        return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $post], 201);
     }
 
     public function update(Request $request,$id)
@@ -79,18 +79,18 @@ class Post extends Controller
             "title"=> $request->input('title'),
             "content"=> $request->input('content'),
             "tags"=> $request->input('tags'),
-            "status"=> $request->input('publish'),
+            "status"=> $request->input('status'),
             "created_time"=> $request->input('created'),
             "updated_time"=> $request->input('update'),
             "author_id"=>$request->input('author_id')
         ];
 
-        return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $post]);
+        return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $post], 206);
     }
 
     public function delete($id)
     {
-        return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]]);    
+        return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
 
 
