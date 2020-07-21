@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Comment extends Controller
 {
@@ -36,7 +37,7 @@ class Comment extends Controller
             ]
 
         ];
-
+        Log::info("Get All Data Comment");
         return response()->json(["messages"=>"Get Data Comments", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
     }
 
@@ -52,7 +53,7 @@ class Comment extends Controller
             "url"=>"http://loca/post",
             "post_id"=> 1
         ];
-
+        Log::info("Get Data Comment $id");
         return response()->json(["messages"=>"Get Data Comments", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $comments]);
     }
 
@@ -68,7 +69,7 @@ class Comment extends Controller
             "url"=>$request->input('url'),
             "post_id"=>$request->input('post_id')
         ];
-
+        Log::info("Insert data Comments");
         return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $comments], 201);
     }
 
@@ -84,12 +85,13 @@ class Comment extends Controller
             "url"=>$request->input('url'),
             "post_id"=>$request->input('post_id')
         ];
-
+        Log::info("Update data $id");
         return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $comments], 201);
     }
 
     public function delete($id)
     {
+        Log::info("Delete data $id");
         return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
 

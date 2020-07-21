@@ -12,9 +12,7 @@ class JwtMiddleware
     public function handle($request, Closure $next)
     {
         $token = $request->bearerToken('token');
-        // print_r($token);
         if(!$token) {
-            // Unauthorized response if token not there
             Log::error("Token not provided");
             return response()->json([
                 'error' => 'Token not provided.'
@@ -40,7 +38,6 @@ class JwtMiddleware
             ], 400);
         } catch(Exception $e) {
             Log::error('An error while decoding token.');
-            // $deco = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
             return response()->json([
                 'error' => 'An error while decoding token.'
             ], 400);

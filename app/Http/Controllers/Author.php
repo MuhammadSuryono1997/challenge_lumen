@@ -78,12 +78,13 @@ class Author extends Controller
             "email"=> $request->input('email'),
             "profile"=> $request->input('profile')
         ];
-
+        Log::info("Update Data $id");
         return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $author], 201);
     }
 
     public function delete($id)
     {
+        Log::info("Delete data $id");
         return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
 

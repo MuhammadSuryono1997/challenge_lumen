@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Log;
 class Post extends Controller
 {
     public function __construct()
@@ -36,7 +37,7 @@ class Post extends Controller
             ]
 
         ];
-
+        Log::info("Get All Data Post");
         return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
     }
 
@@ -52,7 +53,7 @@ class Post extends Controller
             "updated_time"=> "-",
             "author_id"=>10
         ];
-
+        Log::info("Get Data By Id $id");
         return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $post], 200);
     }
 
@@ -69,6 +70,7 @@ class Post extends Controller
             "author_id"=>$request->input('author_id')
         ];
 
+        Log::info("Insert Data Post");
         return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $post], 201);
     }
 
@@ -85,11 +87,13 @@ class Post extends Controller
             "author_id"=>$request->input('author_id')
         ];
 
+        Log::info("Update data $id");
         return response()->json(["messages"=> "Success", "updated_at" => date("d F Y H:is"), "data"=> $post], 206);
     }
 
     public function delete($id)
     {
+        Log::info("Delete data $id");
         return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
 
