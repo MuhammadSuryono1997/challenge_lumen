@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Log;
+
 class Author extends Controller
 {
     public function __construct()
@@ -32,7 +34,7 @@ class Author extends Controller
             ]
 
         ];
-
+        Log::info("Showng All Data Author");
         return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
     }
 
