@@ -5,6 +5,8 @@ use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Illuminate\Support\Facades\Log;
+
+
 class JwtMiddleware
 {
     public function handle($request, Closure $next)
@@ -43,8 +45,5 @@ class JwtMiddleware
                 'error' => 'An error while decoding token.'
             ], 400);
         }
-
-
-        // return $next($request);
     }
 }
