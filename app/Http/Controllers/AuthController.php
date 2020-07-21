@@ -22,7 +22,7 @@ class AuthController extends Controller
             'exp' => time() + 60*60 
         ];
         Log::info("Generate Token");
-        return JWT::encode($payload, env('JWT_SECRET'));
+        return JWT::encode($payload, 'JWT_SECRET');
     } 
 
     public function authenticate(Request $request) {

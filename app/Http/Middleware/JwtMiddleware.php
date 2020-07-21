@@ -21,7 +21,7 @@ class JwtMiddleware
 
         try {
 
-            $credentials = JWT::decode($token, env('JWT_SECRET'), array('HS256'));
+            $credentials = JWT::decode($token, 'JWT_SECRET', array('HS256'));
             if(!$credentials)
             {
                 Log::error('Error Decoding');
