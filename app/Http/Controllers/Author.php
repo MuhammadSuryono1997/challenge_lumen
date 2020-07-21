@@ -49,6 +49,7 @@ class Author extends Controller
             "profile"=> "synergize scalable supply-chains"
         ];
 
+        Log::info("Showng Data Author By Id");
         return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $author], 200);
     }
 
@@ -63,6 +64,7 @@ class Author extends Controller
             "profile"=> $request->input('profile')
         ];
 
+        Log::info("Insert Data");
         return response()->json(["messages"=> "Success", "created_at" => date("d F Y H:is"), "data"=> $author], 201);
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 // use Firebase\JWT\ExpiredException;
 // use Illuminate\Support\Facades\Hash;
 
-class AuthController extends controller
+class AuthController extends Controller
 {
     // protected $request;
     public function __construct()
