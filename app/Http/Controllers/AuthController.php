@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 // use Firebase\JWT\ExpiredException;
 // use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -25,19 +26,32 @@ class AuthController extends Controller
         return JWT::encode($payload, 'JWT_SECRET');
     } 
 
-    public function authenticate(Request $request) {
+    public function authenticate(Request $request, User $user) {
         $this->validate($request, [
             'email'     => 'required|email',
             'password'  => 'required'
         ]);
         
-        // Log::info("Generate Token");
-        return response()->json([
-            'token' => $this->jwt($request)
-        ], 200);
+        $user = User::where('email', $request->input('email'))->first();
+        if(!$user)
+        {
+            Log::error('Email does not exist.');
+            return response()->json(['eror' => 'Email does not exist.'], 400);
+        }
 
-        // return response()->json([
-        //     'error' => 'Email or password is wrong.'
-        // ], 400);
+        // $user = ;
+        if(User::where('password', $request->input('password'))->first())
+        {
+            // Log::info("Generate Token");
+            return response()->json([
+                'token' => $this->jwt($request)
+            ], 200);
+        }
+
+        
+
+        return response()->json([
+            'error' => 'Email or password is wrong.'
+        ], 400);
     }
 }
