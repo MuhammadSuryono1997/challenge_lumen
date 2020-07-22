@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\CommentModel;
 
 class Comment extends Controller
 {
@@ -14,29 +15,30 @@ class Comment extends Controller
 
     public function GetAll()
     {
-        $data = [
-            [
-                "id" => 1,
-                "content"=> "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae",
-                "status"=> "publish",
-                "created_time"=> date("d F Y H:i:s"),
-                "author_id"=>1,
-                "email"=> "msuryono0@gmail.com",
-                "url"=>"http://loca/post",
-                "post_id"=> 1
-            ],
-            [
-                "id" => 2,
-                "content"=> "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae",
-                "status"=> "publish",
-                "created_time"=> date("d F Y H:i:s"),
-                "author_id"=>1,
-                "email"=> "msuryono0@gmail.com",
-                "url"=>"http://loca/post",
-                "post_id"=> 1
-            ]
+        // $data = [
+        //     [
+        //         "id" => 1,
+        //         "content"=> "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae",
+        //         "status"=> "publish",
+        //         "created_time"=> date("d F Y H:i:s"),
+        //         "author_id"=>1,
+        //         "email"=> "msuryono0@gmail.com",
+        //         "url"=>"http://loca/post",
+        //         "post_id"=> 1
+        //     ],
+        //     [
+        //         "id" => 2,
+        //         "content"=> "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae",
+        //         "status"=> "publish",
+        //         "created_time"=> date("d F Y H:i:s"),
+        //         "author_id"=>1,
+        //         "email"=> "msuryono0@gmail.com",
+        //         "url"=>"http://loca/post",
+        //         "post_id"=> 1
+        //     ]
 
-        ];
+        // ];
+        $data = CommentModel::All();
         Log::info("Get All Data Comment");
         return response()->json(["messages"=>"Get Data Comments", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
     }

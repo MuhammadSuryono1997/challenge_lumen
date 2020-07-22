@@ -32,26 +32,28 @@ class AuthController extends Controller
             'password'  => 'required'
         ]);
         
-        $user = User::where('email', $request->input('email'))->first();
-        if(!$user)
-        {
-            Log::error('Email does not exist.');
-            return response()->json(['eror' => 'Email does not exist.'], 400);
-        }
+        // $user = User::where('email', $request->input('email'))->first();
+        // if(!$user)
+        // {
+        //     Log::error('Email does not exist.');
+        //     return response()->json(['eror' => 'Email does not exist.'], 400);
+        // }
 
         // $user = ;
-        if(User::where('password', $request->input('password'))->first())
-        {
-            // Log::info("Generate Token");php artisan 
-            return response()->json([
-                'token' => $this->jwt($request)
-            ], 200);
-        }
-
+        // if(User::where('password', $request->input('password'))->first())
+        // {
+        //     // Log::info("Generate Token");php artisan 
+        //     return response()->json([
+        //         'token' => $this->jwt($request)
+        //     ], 200);
+        // }
+        return response()->json([
+            'token' => $this->jwt($request)
+        ], 200);
         
 
-        return response()->json([
-            'error' => 'Email or password is wrong.'
-        ], 400);
+        // return response()->json([
+        //     'error' => 'Email or password is wrong.'
+        // ], 400);
     }
 }
