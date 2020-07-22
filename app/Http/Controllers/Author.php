@@ -16,29 +16,15 @@ class Author extends Controller
 
     public function GetAll()
     {
-        $data = [
-            [
-                "id" => 1,
-                "username"=> "Clementina DuBuque",
-                "password"=> "IIondhy9jdnd7ndnf09",
-                "salt"=> "TTyU896AAByuuI9",
-                "email"=> "Nathan@yesenia.net",
-                "profile"=> "synergize scalable supply-chains"
-            ],
-            [
-                "id" => 2,
-                "username"=> "Patricia Lebsack",
-                "password"=> "IIondhy9jdnd7nsabsu7",
-                "salt"=> "TTyU8978dHHHuuI9",
-                "email"=> "Julianne.OConner@kory.org",
-                "profile"=> "transition cutting-edge web services"
-            ]
-
-        ];
         $data = AuthorModel::All();
         
         Log::info("Showng All Data Author");
         return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
+    }
+
+    public function GetAllPost()
+    {
+        
     }
 
     public function getById($id)

@@ -42,7 +42,7 @@ class AuthController extends Controller
         // $user = ;
         if(User::where('password', $request->input('password'))->first())
         {
-            // Log::info("Generate Token");
+            // Log::info("Generate Token");php artisan 
             return response()->json([
                 'token' => $this->jwt($request)
             ], 200);

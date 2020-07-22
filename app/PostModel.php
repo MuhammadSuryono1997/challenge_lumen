@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AuthorModel extends Model
+class PostModel extends Model
 {
     // use Authenticatable, Authorizable;
-    protected $table = 'authors';
+    protected $table = 'posts';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'username', 'email', 'profile', 'salt', 'password'
-    ];
+    // protected $fillable = [
+        
+    // ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -25,11 +25,7 @@ class AuthorModel extends Model
     // protected $hidden = [
     //     'password',
     // ];
-    public function post(){
-        return $this->hasMany('App\PostModel');
-    }
-
-    public function comment(){
-        return $this->hasMany('App\CommentModel');
+    public function author(){
+        return $this->belongsTo("App\AuthorModel");
     }
 }
