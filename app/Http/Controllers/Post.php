@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Log;
 use App\PostModel;
+
+
 class Post extends Controller
 {
     public function __construct()
@@ -15,36 +17,38 @@ class Post extends Controller
 
     public function GetAll()
     {
-        $data = [
-            [
-                "id" => 1,
-                "title"=> "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-                "content"=> "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae",
-                "tags"=> "berita,ekonomi",
-                "status"=> "publish",
-                "created_time"=> date("d F Y H:i:s"),
-                "updated_time"=> "-",
-                "author_id"=>1
-            ],
-            [
-                "id" => 2,
-                "title"=> "nesciunt quas odio",
-                "content"=> "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque",
-                "tags"=> "berita,ekonomi,sejarah",
-                "status"=> "publish",
-                "created_time"=> date("d F Y H:i:s"),
-                "updated_time"=> "-",
-                "author_id"=>10
-            ]
+        $data = PostModel::All();
+        Log::info("Get All Data Post");
+        return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
+    }
 
-        ];
+    public function getPostAuthor()
+    {
         $data = PostModel::with(array('author'=>function($query)
         {
             $query->select();
         }))->get();
 
-        Log::info("Get All Data Post");
-        return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
+        Log::info("Get All Data Post Using Author");
+        return response()->json(["messages"=>"Get Data Post Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
+    }
+
+    public function getPostAuthorId(Request $request)
+    {
+        $id = $request->route('id');
+        if(!PostModel::where('author_id', $id)->first())
+        {
+            Log::error("Error Get All Data Post Using Author Id");
+            return response()->json(["messages"=>"Id Not Found", "find_at"=> date("d F Y H:i:s"),"results"=> "Id Not found"]);
+        }
+        
+        $data = PostModel::with(array('author'=>function($query)
+        {
+            $query->where('id', '=', 2);
+        }))->get();
+
+        Log::info("Get All Data Post Using Author Id");
+        return response()->json(["messages"=>"Get Data Post Author Id", "last_update"=> date("d F Y H:i:s"),"results"=> $data]);
     }
 
     public function getById($id)

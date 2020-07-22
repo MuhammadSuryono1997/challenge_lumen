@@ -29,6 +29,8 @@ $router->group(['middleware'=>'jwt.auth'], function() use ($router){
     
         $router->post('post', 'Post@insert');
         $router->get('post', 'Post@getAll');
+        $router->get('post/author', 'Post@getPostAuthor');
+        $router->get('post/author/{id}', 'Post@getPostAuthorId');
         $router->patch('post/{id}', 'Post@update');
         $router->get('post/{id}', 'Post@getById');
         $router->delete('post/{id}', 'Post@delete');
