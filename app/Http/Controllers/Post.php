@@ -36,15 +36,15 @@ class Post extends Controller
     public function getPostAuthorId(Request $request)
     {
         $id = $request->route('id');
-        if(!PostModel::where('author_id', $id)->first())
-        {
-            Log::error("Error Get All Data Post Using Author Id");
-            return response()->json(["messages"=>"Id Not Found", "find_at"=> date("d F Y H:i:s"),"results"=> "Id Not found"]);
-        }
+        // if(!PostModel::where('author_id', $id)->first())
+        // {
+        //     Log::error("Error Get All Data Post Using Author Id");
+        //     return response()->json(["messages"=>"Id Not Found", "find_at"=> date("d F Y H:i:s"),"results"=> "Id Not found"]);
+        // }
         
-        $data = PostModel::with(array('author'=>function($query)
+        $data = PostModel::where('author_id', $id)->with(array('author'=>function($query)
         {
-            $query->where('id', '=', 2);
+            $query->select();
         }))->get();
 
         Log::info("Get All Data Post Using Author Id");
