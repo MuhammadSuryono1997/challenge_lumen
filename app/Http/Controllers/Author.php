@@ -24,7 +24,26 @@ class Author extends Controller
 
     public function GetAllPost()
     {
-        
+        $data = AuthorModel::with(array('post'=>function($query)
+        {
+            $query->select();
+        }))->get();
+
+        Log::info("Showng All Data Author And Post");
+        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
+
+    }
+
+    public function GetAllComment()
+    {
+        $data = AuthorModel::with(array('comment'=>function($query)
+        {
+            $query->select();
+        }))->get();
+
+        Log::info("Showng All Data Author And Post");
+        return response()->json(["messages"=>"Get Data Author", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
+
     }
 
     public function getById($id)

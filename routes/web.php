@@ -23,6 +23,8 @@ $router->group(['middleware'=>'jwt.auth'], function() use ($router){
     $router->group(['prefix'=> 'api'], function() use ($router){
         $router->post('author', 'Author@insert');
         $router->get('author', 'Author@getAll');
+        $router->get('author/post', 'Author@GetAllPost');
+        $router->get('author/comment', 'Author@GetAllComment');
         $router->patch('author/{id}', 'Author@update');
         $router->get('author/{id}', 'Author@getById');
         $router->delete('author/{id}', 'Author@delete');
