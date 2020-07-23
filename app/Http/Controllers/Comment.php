@@ -75,7 +75,7 @@ class Comment extends Controller
         $comments->email = $request->input('email');
         $comments->url = $request->input('url');
         $comments->post_id = $request->input('post_id');
-        if(CommentModel::find($id))
+        if(!CommentModel::find($id))
         {
             Log::info("Comment Id Not Found");
             return response()->json(["messages"=> "Comment Id Not Found"], 404);
