@@ -20,10 +20,10 @@ class Comment extends Controller
         // $data = CommentModel::All();
         $data = CommentModel::with(array('author'=>function($query)
         {
-            $query->select('username','email');
+            $query->select();
         }))->with(array('post'=>function($query)
         {
-            $query->select('title','content');
+            $query->select();
         }))->get();
 
         Log::info("Get All Data Comment");
