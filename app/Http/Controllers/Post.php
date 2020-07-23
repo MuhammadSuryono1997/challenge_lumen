@@ -85,10 +85,10 @@ class Post extends Controller
     public function update(Request $request,$id)
     {
         $post = PostModel::find($id);
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->tags = $request->input('tags');
-        $post->author_id = $request->input('author_id');
+        // $post->title = $request->input('title');
+        // $post->content = $request->input('content');
+        // $post->tags = $request->input('tags');
+        // $post->author_id = $request->input('author_id');
         if(!AuthorModel::find($request->input('author_id')))
         {
             Log::info("Update Not Created");
