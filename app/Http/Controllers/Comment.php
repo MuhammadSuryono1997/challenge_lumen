@@ -17,7 +17,12 @@ class Comment extends Controller
 
     public function GetAll()
     {
-        $data = CommentModel::All();
+        // $data = CommentModel::All();
+        $data = PostModel::with(array('post'=>function($query)
+        {
+            $query->select();
+        }))->get();
+
         Log::info("Get All Data Comment");
         return response()->json(["messages"=>"Get Data Comments", "last_update"=> date("d F Y H:i:s"),"results"=> $data], 200);
     }
@@ -28,7 +33,7 @@ class Comment extends Controller
         if(!$comments)
         {
             Log::notice("Get Data Comment $id Not Found");
-            return response()->json(["messages"=>"Get Data Comments NotFound", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $comments]);
+            return response()->json(["messages"=>"Get Data Comments NotFound", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $comments], 404);
         }
         
         Log::info("Get Data Comment $id");
