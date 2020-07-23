@@ -105,6 +105,7 @@ class Comment extends Controller
             Log::info("Comment Id Not Found");
             return response()->json(["messages"=> "Comment Id Not Found"], 404);
         }
+        $comments.delete();
         Log::info("Delete data $id");
         return response()->json(["message" => "Success","deleted_at" => date("d F Y H:is"),"results" => ["id" => $id]], 200);    
     }
