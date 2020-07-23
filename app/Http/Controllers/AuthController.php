@@ -48,6 +48,8 @@ class AuthController extends Controller
         //     ], 200);
         // }
         return response()->json([
+            'email' => $request->input('email'),
+            'password'=> hash('md5', $request->input('password')),
             'token' => $this->jwt($request)
         ], 200);
         
