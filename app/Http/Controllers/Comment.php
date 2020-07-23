@@ -18,7 +18,7 @@ class Comment extends Controller
     public function GetAll()
     {
         // $data = CommentModel::All();
-        $data = CommentModel::with(array('post'=>function($query)
+        $data = CommentModel::with(array('author'=>function($query)
         {
             $query->select();
         }))->get();
