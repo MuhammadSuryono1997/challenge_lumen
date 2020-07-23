@@ -85,7 +85,7 @@ class Post extends Controller
     public function update(Request $request,$id)
     {
         $post = PostModel::find($id);
-        if(!PostModel::find($request->input('post_id')))
+        if(!PostModel::find($request->input('id')))
         {
             Log::info("Update Not Created");
             return response()->json(["messages"=> "Post Id Not Found"], 404);
