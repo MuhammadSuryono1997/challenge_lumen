@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Log;
 use App\PostModel;
+use App\AuthorModel;
 
 
 class Post extends Controller
@@ -36,11 +37,11 @@ class Post extends Controller
     public function getPostAuthorId(Request $request)
     {
         $id = $request->route('id');
-        // if(!PostModel::where('author_id', $id)->first())
-        // {
-        //     Log::error("Error Get All Data Post Using Author Id");
-        //     return response()->json(["messages"=>"Id Not Found", "find_at"=> date("d F Y H:i:s"),"results"=> "Id Not found"]);
-        // }
+        if(!PostModel::where('author_id', $id)->first())
+        {
+            Log::error("Error Get All Data Post Using Author Id");
+            return response()->json(["messages"=>"Id Not Found", "find_at"=> date("d F Y H:i:s"),"results"=> "Id Not found"]);
+        }
         
         $data = PostModel::where('author_id', $id)->with(array('author'=>function($query)
         {
@@ -70,6 +71,11 @@ class Post extends Controller
         $post->content = $request->input('content');
         $post->tags = $request->input('tags');
         $post->author_id = $request->input('author_id');
+        if(!AuthorModel::find($request->input('author_id')))
+        {
+            Log::info("Insert Not Created");
+            return response()->json(["messages"=> "Author Id Not Found"], 404);
+        }
         $post->save();
 
         Log::info("Insert Data Post");
@@ -83,6 +89,11 @@ class Post extends Controller
         $post->content = $request->input('content');
         $post->tags = $request->input('tags');
         $post->author_id = $request->input('author_id');
+        if(!AuthorModel::find($request->input('author_id')))
+        {
+            Log::info("Update Not Created");
+            return response()->json(["messages"=> "Author Id Not Found"], 404);
+        }
         $post->save();
 
         Log::info("Update data $id");
@@ -92,6 +103,11 @@ class Post extends Controller
     public function delete($id)
     {
         $post = PostModel::find($id);
+        if(!AuthorModel::find($id))
+        {
+            Log::info("Deleted Not Action");
+            return response()->json(["messages"=> "Post Id Not Found"], 404);
+        }
         $post->delete();
 
         Log::info("Delete data $id");
