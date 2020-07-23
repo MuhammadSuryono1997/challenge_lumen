@@ -85,16 +85,20 @@ class Post extends Controller
     public function update(Request $request,$id)
     {
         $post = PostModel::find($id);
-        if(!AuthorModel::find($request->input('author_id')))
+        if(!PostModel::find($request->input('post_id')))
         {
             Log::info("Update Not Created");
-            return response()->json(["messages"=> "Author Id Not Found"], 404);
+            return response()->json(["messages"=> "Post Id Not Found"], 404);
         }
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->tags = $request->input('tags');
         $post->author_id = $request->input('author_id');
-        
+        if(!AuthorModel::find($request->input('author_id')))
+        {
+            Log::info("Update Not Created");
+            return response()->json(["messages"=> "Author Id Not Found"], 404);
+        }
         $post->save();
 
         Log::info("Update data $id");
