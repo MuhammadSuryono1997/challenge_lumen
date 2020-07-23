@@ -32,21 +32,21 @@ class AuthController extends Controller
             'password'  => 'required'
         ]);
         
-        // $user = User::where('email', $request->input('email'))->first();
-        // if(!$user)
-        // {
-        //     Log::error('Email does not exist.');
-        //     return response()->json(['eror' => 'Email does not exist.'], 400);
-        // }
+        $user = User::where('email', $request->input('email'))->first();
+        if(!$user)
+        {
+            Log::error('Email does not exist.');
+            return response()->json(['eror' => 'Email does not exist.'], 400);
+        }
 
         // $user = ;
-        // if(User::where('password', $request->input('password'))->first())
-        // {
-        //     // Log::info("Generate Token");php artisan 
-        //     return response()->json([
-        //         'token' => $this->jwt($request)
-        //     ], 200);
-        // }
+        if(Hash::check($request->input('password'), $user->password))
+        {
+            // Log::info("Generate Token");php artisan 
+            return response()->json([
+                'token' => $this->jwt($request)
+            ], 200);
+        }
         return response()->json([
             'email' => $request->input('email'),
             'password'=> hash('md5', $request->input('password')),
