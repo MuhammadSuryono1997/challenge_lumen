@@ -54,6 +54,11 @@ class Post extends Controller
     public function getById($id)
     { 
         $post = PostModel::find($id);
+        if(!$post)
+        {
+            Log::info("Get Data By Id $id Not Found");
+            return response()->json(["messages"=>"Get Data Post By Id Not Found", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> "Not Found"], 200);
+        }
         Log::info("Get Data By Id $id");
         return response()->json(["messages"=>"Get Data Post", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $post], 200);
     }

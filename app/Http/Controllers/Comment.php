@@ -45,16 +45,13 @@ class Comment extends Controller
 
     public function getById($id)
     { 
-        $comments = [
-            "id" => $id,
-            "content"=> "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae",
-            "status"=> "publish",
-            "created_time"=> date("d F Y H:i:s"),
-            "author_id"=>1,
-            "email"=> "msuryono0@gmail.com",
-            "url"=>"http://loca/post",
-            "post_id"=> 1
-        ];
+        $comments = CommentModel::find($id);
+        if(!$comments)
+        {
+            Log::notice("Get Data Comment $id Not Found");
+            return response()->json(["messages"=>"Get Data Comments NotFound", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $comments]);
+        }
+        
         Log::info("Get Data Comment $id");
         return response()->json(["messages"=>"Get Data Comments", "last_update"=> date("d F Y H:i:s"),"data_id"=>$id,"results"=> $comments]);
     }
