@@ -103,7 +103,7 @@ class Post extends Controller
     public function delete($id)
     {
         $post = PostModel::find($id);
-        if(!AuthorModel::find($id))
+        if(!PostModel::find($id))
         {
             Log::info("Deleted Not Action");
             return response()->json(["messages"=> "Post Id Not Found"], 404);
